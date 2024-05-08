@@ -4,6 +4,7 @@ package com.lojaUni.Controller;
 import com.lojaUni.Model.Compra;
 import com.lojaUni.Model.Item;
 import com.lojaUni.Service.CompraService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/carrinho")
 public class CompraController {
-    private CompraService compraService;
+    @Autowired
+    private CompraService compraService ;
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Compra>> buscarCompra(@PathVariable Long id) {

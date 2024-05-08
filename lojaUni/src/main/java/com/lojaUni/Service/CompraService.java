@@ -5,11 +5,12 @@ import com.lojaUni.Model.Item;
 import com.lojaUni.Repository.CompraRepository;
 import com.lojaUni.Repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class CompraService {
     @Autowired
     CompraRepository compraRepo;

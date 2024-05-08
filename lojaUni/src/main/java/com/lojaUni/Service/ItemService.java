@@ -2,10 +2,11 @@ package com.lojaUni.Service;
 
 import com.lojaUni.Model.Item;
 import com.lojaUni.Model.TipoVela;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class ItemService {
     private static final List<Item> ITENS_FIXOS = new ArrayList<>();
 
