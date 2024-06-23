@@ -2,6 +2,7 @@ package com.lojaUni.Service;
 
 import com.lojaUni.Model.Compra;
 import com.lojaUni.Model.Item;
+import com.lojaUni.Model.TipoVela;
 import com.lojaUni.Repository.CompraRepository;
 import com.lojaUni.Repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +27,37 @@ public class CompraService {
         return compraRepo.findById(id);
     }
 
-    public Compra adicionaItemCompra(Long id) {
-        Item item = itemRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Item não encontrado com o ID: " + id));
-        if (item != null) {
-            List<Item> itens = new ArrayList<>();
-            itens.add(item);
-            double total = calculaValorCompra(itens);
-            Compra compra = new Compra(itens, total);
+    public Compra adicionaItemCompra(List<Integer> quantidades) {
+        //Item item = itemRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Item não encontrado com o ID: " + id));
+        List<Item> items = new ArrayList<>();
+        if(!quantidades.isEmpty()){
+            if(quantidades.get(0) != 0){
+                Item item1= new Item(quantidades.get(0), 10, TipoVela.PURORESPIRO);
+
+                items.add(itemRepo.save(item1));
+            }
+            if(quantidades.get(1) != 0){
+                Item item2= new Item(quantidades.get(1),15, TipoVela.AMORE);
+                items.add(itemRepo.save(item2));
+
+            }
+            if(quantidades.get(2) != 0){
+                Item item3= new Item(quantidades.get(2),20, TipoVela.CITRA);
+                items.add(itemRepo.save(item3));
+
+            }
+        }
+        Compra compra = new Compra();
+        if (items != null && !items.isEmpty()) {
+            double total = calculaValorCompra(items);
+            compra.setItem(items);
+            compra.setTotal(total);
             compraRepo.save(compra);
         } else {
             // Lide com o caso em que o item não foi encontrado
-            throw new IllegalArgumentException("Item não encontrado com o ID: " + id);
+            throw new IllegalArgumentException("Problema na compra");
         }
-        return null;
+        return compra;
     }
 
 

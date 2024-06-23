@@ -11,7 +11,7 @@ public class Compra {
     private Long id;
     @OneToMany
     private List<Item> item;
-
+    @Column
     private double total;
 
     public Compra(List<Item> item){

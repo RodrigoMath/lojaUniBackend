@@ -5,6 +5,7 @@ import com.lojaUni.Model.Compra;
 import com.lojaUni.Model.Item;
 import com.lojaUni.Service.CompraService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,10 +29,10 @@ public class CompraController {
     }
 
     @PostMapping
-    public ResponseEntity<Compra> adicionarNaCompra(@RequestParam Long id) {
+    public ResponseEntity<Compra> adicionarNaCompra(@RequestBody List<Integer> quantidades) {
         try {
-            Compra compra = compraService.adicionaItemCompra(id);
-            return ResponseEntity.ok(compra);
+            Compra compra = compraService.adicionaItemCompra(quantidades);
+            return ResponseEntity.status(HttpStatus.CREATED).body(compra);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(null);
         }
